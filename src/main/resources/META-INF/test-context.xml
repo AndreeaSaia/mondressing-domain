@@ -16,23 +16,11 @@
 	<!-- Database -->
 	<jdbc:embedded-database id="dataSource" type="H2"/>
 
-		<!--</jdbc:embedded-database> -->
-
-	<!-- <bean id="dataSource"
-      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-    <property name="driverClassName" value="org.h2.Driver" />
-    <property name="url" value="jdbc:h2:database/~test" />
-    <property name="username" value="sa" />
-    <property name="password" value="" />
-	</bean> -->
-
 	<!-- Entity Manager -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="fr.adhoc"/>
-		<!-- <property name="persistenceUnitName" value="tothought-tutorial-test" 
-			/> -->
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 				<property name="showSql" value="true" />
