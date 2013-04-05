@@ -24,7 +24,7 @@ import fr.adhoc.mondressing.domain.repositories.impl.JpaUserRepository;
 	public class JpaUserRepositoryTest {
 
 		@Autowired
-		UserRepository jpaUserRepository;
+		UserRepository userRepository;
 		
 		@Test
 		public void test() {
@@ -33,13 +33,12 @@ import fr.adhoc.mondressing.domain.repositories.impl.JpaUserRepository;
 			user.setPrenom("Andreea");
 			user.setEmail("andreea.saia@adhoc-international.com");
 			
-			jpaUserRepository.save(user);
+			userRepository.save(user);
 			//System.out.println(x.getIdentifier() + " " + x.getEmail());
-			User userFromBD = jpaUserRepository.findByEmail(user.getEmail());
+			User userFromBD = userRepository.findByEmail(user.getEmail());
 			assertNotNull(userFromBD);
-			System.out.println(userFromBD.getIdentifier());
-			System.out.println(userFromBD.getNom());
-			System.out.println(userFromBD.getPrenom());
+			assertEquals(userFromBD.getNom(), user.getNom());
+			assertEquals(userFromBD.getPrenom(), user.getPrenom());
 		}
 
 	}
