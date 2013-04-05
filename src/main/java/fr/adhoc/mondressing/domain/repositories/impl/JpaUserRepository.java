@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /** Find user objects by using the JPA API
  */
@@ -32,18 +33,22 @@ public class JpaUserRepository implements UserRepository{
 		this.entityManager=(EntityManager) entityManager;
 	}
 
+	@Transactional
 	public User findById(int identifier) {
 		return (User) ((EntityManager) entityManager).find(User.class,identifier);
 	}
-
+    
+    @Transactional
 	public User findByEmail(String email) {
-		return (User) ((EntityManager) entityManager).createQuery("select u from User u where u.email=?").setParameter(1,email).getSingleResult();	
+		return (User) ((EntityManager) entityManager).createQuery("select u from User u where u.email=?1").setParameter(1,email).getSingleResult();	
 
 	}
 
 	@Override
+	@Transactional
 	public void save(User user) {
 		 entityManager.persist(user);
+		 entityManager.flush();
 	}
 	
 	

@@ -3,20 +3,34 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
 		http://www.springframework.org/schema/context 
-                    	http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+
 
 	<!-- Database -->
-	<jdbc:embedded-database id="datasource" type="H2"></jdbc:embedded-database>
+	<jdbc:embedded-database id="dataSource" type="H2"/>
+
+		<!--</jdbc:embedded-database> -->
+
+	<!-- <bean id="dataSource"
+      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <property name="driverClassName" value="org.h2.Driver" />
+    <property name="url" value="jdbc:h2:database/~test" />
+    <property name="username" value="sa" />
+    <property name="password" value="" />
+	</bean> -->
 
 	<!-- Entity Manager -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="dataSource" ref="datasource" />
-		<property name="packagesToScan" value="fr.adhoc.mondressing.domain"></property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="packagesToScan" value="fr.adhoc"/>
 		<!-- <property name="persistenceUnitName" value="tothought-tutorial-test" 
 			/> -->
 		<property name="jpaVendorAdapter">
@@ -37,5 +51,7 @@
 	<jpa:repositories base-package="fr.adhoc.mondressing.domain.repositories"></jpa:repositories>
 
 	<context:component-scan base-package="fr.adhoc.mondressing.domain" />
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>

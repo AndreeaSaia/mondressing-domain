@@ -37,6 +37,7 @@ import fr.adhoc.mondressing.domain.repositories.impl.JpaUserRepository;
 			//System.out.println(x.getIdentifier() + " " + x.getEmail());
 			User userFromBD = jpaUserRepository.findByEmail(user.getEmail());
 			assertNotNull(userFromBD);
+			System.out.println(userFromBD.getIdentifier());
 			System.out.println(userFromBD.getNom());
 			System.out.println(userFromBD.getPrenom());
 		}
