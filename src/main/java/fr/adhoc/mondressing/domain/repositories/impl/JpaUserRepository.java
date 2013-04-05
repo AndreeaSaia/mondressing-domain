@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class JpaUserRepository implements UserRepository{ 
  
-	@PersistenceContext
 	private EntityManager entityManager;
 
 	/** Set the entity manager. Assumes automatic dependency injection via the JPA @PersistenceContext
@@ -33,7 +32,7 @@ public class JpaUserRepository implements UserRepository{
 		this.entityManager=(EntityManager) entityManager;
 	}
 
-	@Transactional
+	@Transactional	
 	public User findById(int identifier) {
 		return (User) ((EntityManager) entityManager).find(User.class,identifier);
 	}
@@ -48,7 +47,6 @@ public class JpaUserRepository implements UserRepository{
 	@Transactional
 	public void save(User user) {
 		 entityManager.persist(user);
-		 entityManager.flush();
 	}
 	
 	
